@@ -1,0 +1,20 @@
+{
+  "name": "ispgo-tv-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "package:tizen": "node scripts/package.mjs tizen",
+    "package:webos": "node scripts/package.mjs webos"
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4"
+  },
+  "devDependencies": {
+    "@webos-tools/cli": "^3.2.6",
+    "typescript": "~5.9.3",
+    "vite": "^6.4.1"
+  }
+}

@@ -1,0 +1,348 @@
+/* Marca IspGo: azul marino y verde. Todo se diseña sobre 1920x1080. */
+:root {
+  --navy: #0d2338;
+  --navy-light: #183c60;
+  --green: #01bb7c;
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.7);
+  --error: #ff8a80;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--navy);
+  color: var(--text);
+  font-family: 'Samsung One', 'LG Smart UI', Roboto, Arial, sans-serif;
+  font-size: 28px;
+}
+
+/* Mientras se ve un canal la página queda transparente para dejar ver el video. */
+body.watching {
+  background: transparent;
+}
+
+.video-layer,
+.video-surface {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  background: #000;
+}
+
+body:not(.watching) .video-layer {
+  display: none;
+}
+
+#app {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  outline: none;
+}
+
+.focusable {
+  transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+}
+
+.focusable:focus {
+  box-shadow: 0 0 0 5px var(--green);
+  transform: scale(1.04);
+}
+
+.button {
+  padding: 18px 40px;
+  border-radius: 40px;
+  background: var(--green);
+  font-weight: bold;
+}
+
+.button.ghost {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.error {
+  color: var(--error);
+  font-size: 32px;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.spinner {
+  width: 72px;
+  height: 72px;
+  border: 7px solid rgba(255, 255, 255, 0.25);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+.spinner.center {
+  margin: -36px 0 0 -36px;
+  transform: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Vinculación */
+.pairing {
+  display: flex;
+  align-items: center;
+  padding: 0 140px;
+  background: radial-gradient(circle at 80% 30%, var(--navy-light), var(--navy) 70%);
+}
+
+.pair-steps {
+  flex: 1;
+  padding-right: 100px;
+}
+
+.brand {
+  height: 90px;
+}
+
+.pairing h1 {
+  font-size: 64px;
+  margin: 40px 0 48px;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  margin-bottom: 32px;
+  font-size: 36px;
+  color: var(--muted);
+}
+
+.step-number {
+  display: inline-block;
+  flex: none;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  margin-right: 28px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+}
+
+.pair-code-box {
+  text-align: center;
+}
+
+.qr {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  padding: 24px;
+  border-radius: 36px;
+  background: #fff;
+}
+
+.qr svg {
+  width: 100%;
+  height: 100%;
+}
+
+.qr .spinner {
+  position: absolute;
+  left: 204px;
+  top: 204px;
+  border-color: rgba(24, 60, 96, 0.2);
+  border-top-color: var(--green);
+}
+
+.pair-code {
+  margin-top: 36px;
+  font-family: 'Courier New', monospace;
+  font-size: 72px;
+  font-weight: bold;
+  letter-spacing: 8px;
+}
+
+/* Guía de canales */
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 48px 80px 0;
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.provider-logo {
+  max-height: 72px;
+  max-width: 360px;
+}
+
+.greeting {
+  flex: 1;
+  margin-left: 40px;
+  font-size: 32px;
+  color: var(--muted);
+}
+
+.home-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.categories {
+  width: 340px;
+  flex: none;
+  overflow: hidden;
+  padding: 8px 24px 8px 8px;
+}
+
+.category {
+  display: block;
+  width: 100%;
+  padding: 18px 28px;
+  margin-bottom: 12px;
+  border-radius: 20px;
+  text-align: left;
+  color: var(--muted);
+}
+
+.category.selected {
+  background: rgba(1, 187, 124, 0.2);
+  color: var(--text);
+  font-weight: bold;
+}
+
+.channels {
+  flex: 1;
+  overflow: hidden;
+  padding: 8px 8px 48px;
+}
+
+.channel {
+  display: inline-block;
+  vertical-align: top;
+  width: 256px;
+  margin: 0 24px 28px 0;
+  padding: 0;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.channel-logo {
+  height: 148px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.channel-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.channel-name {
+  padding: 16px 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  font-size: 26px;
+}
+
+.empty,
+.message p {
+  color: var(--muted);
+  font-size: 36px;
+}
+
+.message {
+  margin: 160px auto 0;
+  max-width: 1100px;
+  text-align: center;
+}
+
+/* Viendo un canal */
+.watch {
+  position: relative;
+}
+
+.watch-status .error {
+  padding: 32px 48px;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.channel-info {
+  position: absolute;
+  left: 72px;
+  bottom: 72px;
+  display: flex;
+  align-items: center;
+  padding: 24px 36px;
+  border-radius: 24px;
+  background: rgba(0, 0, 0, 0.72);
+}
+
+.channel-info.hidden {
+  display: none;
+}
+
+.info-number {
+  margin-right: 28px;
+  font-size: 64px;
+  font-weight: bold;
+}
+
+.info-logo {
+  width: 140px;
+  height: 84px;
+  margin-right: 28px;
+  object-fit: contain;
+}
+
+.info-name {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.info-hint {
+  color: var(--muted);
+  font-size: 24px;
+}

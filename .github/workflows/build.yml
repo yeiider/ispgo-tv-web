@@ -1,0 +1,38 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Empaquetar para Samsung y LG
+        env:
+          VERSION: 0.1.${{ github.run_number }}
+        run: |
+          npm run package:tizen
+          npm run package:webos
+      - name: Publicar la versión de prueba
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: IspGo TV Samsung y LG (prueba ${{ github.run_number }})
+          prerelease: true
+          body: Paquetes del commit ${{ github.sha }}. El .wgt de Samsung va sin firmar (se firma con el certificado de Samsung, ver README); el .ipk de LG se instala tal cual en modo desarrollador.
+          files: |
+            out/*.wgt
+            out/*.ipk

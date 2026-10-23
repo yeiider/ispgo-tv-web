@@ -1,0 +1,13 @@
+{
+  "id": "net.ispgo.tv",
+  "version": "@VERSION@",
+  "vendor": "IspGo",
+  "type": "web",
+  "main": "index.html",
+  "title": "IspGo TV",
+  "icon": "icon-80.png",
+  "largeIcon": "icon-130.png",
+  "resolution": "1920x1080",
+  "disableBackHistoryAPI": true,
+  "requiredACG": []
+}
